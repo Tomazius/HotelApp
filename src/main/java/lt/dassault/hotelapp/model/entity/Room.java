@@ -1,6 +1,7 @@
 package lt.dassault.hotelapp.model.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Room")
@@ -9,21 +10,44 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int roomNumber;
+    private String roomNumber;
     private String roomStatus;
 
     @OneToOne
     @JoinColumn(name = "guest_id", referencedColumnName = "id")
     private Guest guestAtRoom;
 
+    @OneToMany(mappedBy = "roomVisit")
+    private Set<Visit> roomVisitHistory;
+
     public Room() {
     }
 
-    public Room(int id, int roomNumber, String roomStatus, Guest guestAtRoom) {
+    public Room(int id, String roomNumber, String roomStatus, Guest guestAtRoom, Set<Visit> roomVisitHistory) {
         this.id = id;
         this.roomNumber = roomNumber;
         this.roomStatus = roomStatus;
         this.guestAtRoom = guestAtRoom;
+        this.roomVisitHistory = roomVisitHistory;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", roomNumber='" + roomNumber + '\'' +
+                ", roomStatus='" + roomStatus + '\'' +
+                ", guestAtRoom=" + guestAtRoom +
+                ", roomVisitHistory=" + roomVisitHistory +
+                '}';
+    }
+
+    public Set<Visit> getRoomVisitHistory() {
+        return roomVisitHistory;
+    }
+
+    public void setRoomVisitHistory(Set<Visit> roomVisitHistory) {
+        this.roomVisitHistory = roomVisitHistory;
     }
 
     public int getId() {
@@ -34,11 +58,11 @@ public class Room {
         this.id = id;
     }
 
-    public int getRoomNumber() {
+    public String getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(int roomNumber) {
+    public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }
 
@@ -58,13 +82,4 @@ public class Room {
         this.guestAtRoom = guestAtRoom;
     }
 
-    @Override
-    public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", roomNumber=" + roomNumber +
-                ", roomStatus='" + roomStatus + '\'' +
-                ", guestAtRoom=" + guestAtRoom +
-                '}';
-    }
 }
