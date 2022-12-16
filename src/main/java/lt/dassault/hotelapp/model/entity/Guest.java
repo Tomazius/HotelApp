@@ -18,9 +18,9 @@ public class Guest {
     @NotNull
     private String lastName;
 
-    @OneToOne
+/*    @OneToOne
     @JoinColumn(name = "room_id", referencedColumnName = "id")
-    private Room assignedRoom;
+    private Room assignedRoom;*/
 
     @OneToMany(mappedBy = "guestVisit")
     private Set<Visit> guestVisitHistory;
@@ -28,11 +28,10 @@ public class Guest {
     public Guest() {
     }
 
-    public Guest(int id, String name, String lastName, Room assignedRoom, Set<Visit> guestVisitHistory) {
+    public Guest(int id, String name, String lastName, Set<Visit> guestVisitHistory) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
-        this.assignedRoom = assignedRoom;
         this.guestVisitHistory = guestVisitHistory;
     }
 
@@ -68,21 +67,12 @@ public class Guest {
         this.lastName = lastName;
     }
 
-    public Room getAssignedRoom() {
-        return assignedRoom;
-    }
-
-    public void setAssignedRoom(Room assignedRoom) {
-        this.assignedRoom = assignedRoom;
-    }
-
     @Override
     public String toString() {
         return "Guest{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", assignedRoom=" + assignedRoom +
                 ", guestVisitHistory=" + guestVisitHistory +
                 '}';
     }

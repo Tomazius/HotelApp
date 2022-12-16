@@ -13,9 +13,9 @@ public class Room {
     private String roomNumber;
     private String roomStatus;
 
-    @OneToOne
+    /*@OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "guest_id", referencedColumnName = "id")
-    private Guest guestAtRoom;
+    private Guest guestAtRoom;*/
 
     @OneToMany(mappedBy = "roomVisit")
     private Set<Visit> roomVisitHistory;
@@ -23,11 +23,10 @@ public class Room {
     public Room() {
     }
 
-    public Room(int id, String roomNumber, String roomStatus, Guest guestAtRoom, Set<Visit> roomVisitHistory) {
+    public Room(int id, String roomNumber, String roomStatus, Set<Visit> roomVisitHistory) {
         this.id = id;
         this.roomNumber = roomNumber;
         this.roomStatus = roomStatus;
-        this.guestAtRoom = guestAtRoom;
         this.roomVisitHistory = roomVisitHistory;
     }
 
@@ -37,7 +36,6 @@ public class Room {
                 "id=" + id +
                 ", roomNumber='" + roomNumber + '\'' +
                 ", roomStatus='" + roomStatus + '\'' +
-                ", guestAtRoom=" + guestAtRoom +
                 ", roomVisitHistory=" + roomVisitHistory +
                 '}';
     }
@@ -72,14 +70,6 @@ public class Room {
 
     public void setRoomStatus(String roomStatus) {
         this.roomStatus = roomStatus;
-    }
-
-    public Guest getGuestAtRoom() {
-        return guestAtRoom;
-    }
-
-    public void setGuestAtRoom(Guest guestAtRoom) {
-        this.guestAtRoom = guestAtRoom;
     }
 
 }
