@@ -67,6 +67,8 @@ public class Guest {
         this.lastName = lastName;
     }
 
+    public String getFullName() { return name + " " + lastName;}
+
     @Override
     public String toString() {
         return "Guest{" +

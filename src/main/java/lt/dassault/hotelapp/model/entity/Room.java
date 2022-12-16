@@ -40,6 +40,15 @@ public class Room {
                 '}';
     }
 
+    public Visit getActiveVisit(){
+        for(Visit visit : roomVisitHistory){
+            if (visit.getVisitStatus().equals("Active")){
+                return visit;
+            }
+        }
+        return null;
+    }
+
     public Set<Visit> getRoomVisitHistory() {
         return roomVisitHistory;
     }

@@ -14,11 +14,18 @@
     <a class="btn btn-outline-success my-2 my-sm-0" th:href="@{/booking_form}">Book a room</a>
 </div>
 <hr>
-<div th:each="room : ${allRooms} visit : ${allVisits}" class="list-group">
+<div th:each="room : ${allRooms}" class="list-group">
     <p th:text="${room.getRoomNumber()}" class="list-group-item list-group-item-action"></p>
     <p th:text="${room.getRoomStatus()}" class="list-group-item list-group-item-action"></p>
-    <p th:text=$"{visit.getGuestVisit()}" class="list-group-item list-group-item-action"></p>
-    <p th:text=$"{visit.getRoomVisit()}" class="list-group-item list-group-item-action"></p>
+    <p th:text="${room.getActiveVisit() != null} ? ${room.getActiveVisit.getGuestVisit().getFullName()}" class="list-group-item list-group-item-action"></p>
+<!--
+    <p type="hidden" th:field="*{visitId}"></p>
+-->
+    <br>
+    <div>
+    <a class="btn btn-outline-success my-2 my-sm-0" th:href="${room.getActiveVisit() != null} ? @{'/checkout_form/' + ${room.getActiveVisit().getId()}} : @{/room_empty}">Checkout</a>
+    </div>
+        <!--<p th:text=$"{visit.getRoomVisit()}" class="list-group-item list-group-item-action"></p>-->
     <hr>
     <!--    <div>
         <form th:action="@{'/booking_form/' + ${room.id}}" method="get">

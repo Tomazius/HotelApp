@@ -10,5 +10,6 @@ import java.util.List;
 public interface VisitRepository extends JpaRepository<Visit, Integer> {
     List<Visit> findAll();
     List<Visit> findByVisitStatus(String status);
-
+    Visit findByRoomVisit(int id);
+    Visit findById(int id);
 }

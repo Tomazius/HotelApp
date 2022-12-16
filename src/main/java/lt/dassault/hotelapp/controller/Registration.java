@@ -26,9 +26,10 @@ public class Registration {
     String roomBooking(Model model) {
         List<Room> allRooms = roomRepository.findAll();
         model.addAttribute("allRooms", allRooms);
-        List<Visit> allVisits = visitRepository.findByVisitStatus("Active");
-        model.addAttribute("roomVisit", allVisits.getRoomVisit());
-        model.addAttribute("guestVisit", allVisits.getGuestVisit());
+/*        for (Room room : allRooms) {
+            room.getActiveVisit().getId();
+            System.out.println(room.getActiveVisit().getId());
+        }*/
         return "booking_homepage";
     }
 
@@ -61,8 +62,32 @@ public class Registration {
         return "booking_confirmed";
     }
 
-    @GetMapping("/checkout")
-    String visitCheckOut(Model model){
-        return null;
+    @GetMapping("/checkout_form/{id}")
+    String visitCheckOut(Model model, @PathVariable int id){
+        Visit visit = visitRepository.findById(id);
+        model.addAttribute("fullName", visit.getGuestVisit().getFullName());
+        System.out.println(visit.getGuestVisit().getFullName());
+        return "checkout_form";
+    }
+
+    @PostMapping("/checkout_confirmation/{id}")
+    String confirmCheckout(Model model, @PathVariable int id){
+        Visit visit = visitRepository.findById(id);
+        visit.setVisitStatus("Finished");
+        visit.getRoomVisit().setRoomStatus("Vacant");
+        visitRepository.save(visit);
+        return "checkout_finished";
+    }
+
+    @GetMapping("/room_empty")
+    String emptyRoom(){
+        return "room_empty";
+    }
+
+    @GetMapping("/booking_history")
+    String showHistory(Model model){
+        List<Visit> allVisits = visitRepository.findAll();
+        model.addAttribute("allVisits", allVisits);
+        return "visit_history";
     }
 }
