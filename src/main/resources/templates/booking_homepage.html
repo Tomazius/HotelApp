@@ -28,8 +28,8 @@
     <div class="w3-panel">
         <div class="w3-row-padding" style="margin:0 -16px">
             <div class="w3-third">
-                <h5>SAY SOMETHING HERE blah bla</h5>
-                <img src="/w3images/region.jpg" style="width:100%" alt="Google Regional Map">
+                <h5>We value your stay</h5>
+                <img src="https://gir.oss-ap-southeast-2.aliyuncs.com/images/home-stay.jpg" style="width:100%" alt="Hotel from google">
             </div>
             <div class="w3-twothird">
                 <h5>Room status</h5>
@@ -47,7 +47,7 @@
                         <td><span th:text="${room.getRoomNumber()}"></span></td>
                         <td><span th:text="${room.getRoomStatus()}"></span></td>
                         <td><span th:text="${room.getActiveVisit() != null} ? ${room.getActiveVisit.getGuestVisit().getFullName()}"></span></td>
-                        <td><span th:text="${room.getActiveVisit().getCheckInDate()}"></span></td>
+                        <td><span th:text="${room.getActiveVisit() != null} ? ${room.getActiveVisit().getCheckInDate()}"></span></td>
                         <td><a class="btn btn-sm btn-outline-danger my-2 my-sm-0" th:href="${room.getActiveVisit() != null} ? @{'/checkout_form/' + ${room.getActiveVisit().getId()}} : @{/room_empty}">Checkout</a></td>
                     </tr>
                 </table>

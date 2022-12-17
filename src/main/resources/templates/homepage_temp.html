@@ -46,7 +46,7 @@
                         <td><span th:text="${room.getRoomNumber()}"></span></td>
                         <td><span th:text="${room.getRoomStatus()}"></span></td>
                         <td><span th:text="${room.getActiveVisit() != null} ? ${room.getActiveVisit.getGuestVisit().getFullName()}"></span></td>
-                        <td><span th:text="${room.getActiveVisit().getCheckInDate()}"></span></td>
+                        <td><span th:text="${room.getActiveVisit() != null} ? ${room.getActiveVisit().getCheckInDate()}"></span></td>
                     </tr>
                 </table>
             </div>
