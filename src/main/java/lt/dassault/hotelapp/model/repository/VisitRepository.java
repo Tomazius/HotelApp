@@ -12,4 +12,5 @@ public interface VisitRepository extends JpaRepository<Visit, Integer> {
     List<Visit> findByVisitStatus(String status);
     Visit findByRoomVisit(int id);
     Visit findById(int id);
+    List<Visit> findAllByOrderByCheckInDateDesc();
 }

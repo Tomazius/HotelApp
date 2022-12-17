@@ -12,6 +12,7 @@
 <body>
 <hr>
 <div th:each="visit : ${allVisits}" class="list-group">
+    <p th:text="${visit.getCheckInDate()}" class="list-group-item list-group-item-action"></p>
     <p th:text="${visit.getVisitStatus()}" class="list-group-item list-group-item-action"></p>
     <p th:text="${visit.getGuestVisit().getFullName()}" class="list-group-item list-group-item-action"></p>
     <p th:text="${visit.getRoomVisit().getRoomNumber()}" class="list-group-item list-group-item-action"></p>

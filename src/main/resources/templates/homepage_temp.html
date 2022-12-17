@@ -40,7 +40,6 @@
                         <th>Status</th>
                         <th>Guest</th>
                         <th>Check-in date</th>
-                        <th></th>
                     </tr>
                     <tr th:each="room : ${allRooms}">
                         <td><i class="fa fa-bed w3-text-red w3-large"></i></td>
@@ -48,7 +47,6 @@
                         <td><span th:text="${room.getRoomStatus()}"></span></td>
                         <td><span th:text="${room.getActiveVisit() != null} ? ${room.getActiveVisit.getGuestVisit().getFullName()}"></span></td>
                         <td><span th:text="${room.getActiveVisit().getCheckInDate()}"></span></td>
-                        <td><a class="btn btn-sm btn-outline-danger my-2 my-sm-0" th:href="${room.getActiveVisit() != null} ? @{'/checkout_form/' + ${room.getActiveVisit().getId()}} : @{/room_empty}">Checkout</a></td>
                     </tr>
                 </table>
             </div>

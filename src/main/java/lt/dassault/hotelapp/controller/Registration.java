@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -26,10 +27,6 @@ public class Registration {
     String roomBooking(Model model) {
         List<Room> allRooms = roomRepository.findAll();
         model.addAttribute("allRooms", allRooms);
-/*        for (Room room : allRooms) {
-            room.getActiveVisit().getId();
-            System.out.println(room.getActiveVisit().getId());
-        }*/
         return "booking_homepage";
     }
 
@@ -53,6 +50,7 @@ public class Registration {
         visit.setRoomVisit(room);
         visit.setGuestVisit(newGuest);
         visit.setVisitStatus("Active");
+        visit.setCheckInDate(LocalDateTime.now());
         roomRepository.save(room);
         guestRepository.save(newGuest);
         visitRepository.save(visit);
@@ -75,6 +73,7 @@ public class Registration {
         Visit visit = visitRepository.findById(id);
         visit.setVisitStatus("Finished");
         visit.getRoomVisit().setRoomStatus("Vacant");
+        visit.setCheckOutDate(LocalDateTime.now());
         visitRepository.save(visit);
         return "checkout_finished";
     }
@@ -86,8 +85,18 @@ public class Registration {
 
     @GetMapping("/booking_history")
     String showHistory(Model model){
-        List<Visit> allVisits = visitRepository.findAll();
+        List<Visit> allVisits = visitRepository.findAllByOrderByCheckInDateDesc();
         model.addAttribute("allVisits", allVisits);
         return "visit_history";
     }
+
+/*    @GetMapping("/template")
+    String template(){
+        return "homepage_temps";
+    }
+
+    @GetMapping("/test")
+    String test(){
+        return "testpage";
+    }*/
 }
