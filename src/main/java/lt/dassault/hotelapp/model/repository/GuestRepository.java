@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface GuestRepository extends JpaRepository <Guest, Integer> {
+public interface GuestRepository extends JpaRepository<Guest, Integer> {
 
     List<Guest> findAll();
 }

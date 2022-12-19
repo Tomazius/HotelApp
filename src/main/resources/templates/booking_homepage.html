@@ -17,7 +17,7 @@
 
 <!-- Navigation Bar -->
 <div class="w3-bar w3-white w3-large">
-    <a th:href="@{/booking}" class="w3-bar-item w3-button w3-red w3-mobile"><i class="fa fa-bed w3-margin-right"></i>Home</a>
+    <a th:href="@{/home}" class="w3-bar-item w3-button w3-red w3-mobile"><i class="fa fa-bed w3-margin-right"></i>Home</a>
     <a th:href="@{/booking_form}" class="w3-bar-item w3-button w3-mobile">Room booking</a>
     <a th:href="@{/booking_history}" class="w3-bar-item w3-button w3-mobile">Visit history</a>
 </div>
@@ -43,11 +43,11 @@
                         <th></th>
                     </tr>
                     <tr th:each="room : ${allRooms}">
-                        <td><i class="fa fa-bed w3-text-red w3-large"></i></td>
+                        <td><i th:classappend="${room.getRoomStatus() == 'Vacant' ? 'w3-text-green' : 'w3-text-red'} " class="fa fa-bed w3-large"></i></td>
                         <td><span th:text="${room.getRoomNumber()}"></span></td>
                         <td><span th:text="${room.getRoomStatus()}"></span></td>
                         <td><span th:text="${room.getActiveVisit() != null} ? ${room.getActiveVisit.getGuestVisit().getFullName()}"></span></td>
-                        <td><span th:text="${room.getActiveVisit() != null} ? ${room.getActiveVisit().getCheckInDate()}"></span></td>
+                        <td><span th:text="${room.getActiveVisit() != null} ? ${#temporals.format(room.getActiveVisit().getCheckInDate(),'yyyy-MM-dd HH:mm:ss')}"></span></td>
                         <td><a class="btn btn-sm btn-outline-danger my-2 my-sm-0" th:href="${room.getActiveVisit() != null} ? @{'/checkout_form/' + ${room.getActiveVisit().getId()}} : @{/room_empty}">Checkout</a></td>
                     </tr>
                 </table>

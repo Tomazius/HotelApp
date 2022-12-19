@@ -1,11 +1,10 @@
 package lt.dassault.hotelapp.model.entity;
 
-import org.springframework.data.annotation.CreatedDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -25,8 +24,10 @@ public class Visit {
     @JoinColumn(name = "room_id")
     private Room roomVisit;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime checkInDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime checkOutDate;
 
     public Visit() {
@@ -100,5 +101,4 @@ public class Visit {
                 ", checkOutDate=" + checkOutDate +
                 '}';
     }
-
 }

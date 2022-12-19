@@ -11,11 +11,7 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String roomNumber;
-    private String roomStatus;
-
-    /*@OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "guest_id", referencedColumnName = "id")
-    private Guest guestAtRoom;*/
+    private String roomStatus;   //FIXME migrate to enum
 
     @OneToMany(mappedBy = "roomVisit")
     private Set<Visit> roomVisitHistory;
@@ -30,19 +26,9 @@ public class Room {
         this.roomVisitHistory = roomVisitHistory;
     }
 
-    @Override
-    public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", roomNumber='" + roomNumber + '\'' +
-                ", roomStatus='" + roomStatus + '\'' +
-                ", roomVisitHistory=" + roomVisitHistory +
-                '}';
-    }
-
-    public Visit getActiveVisit(){
-        for(Visit visit : roomVisitHistory){
-            if (visit.getVisitStatus().equals("Active")){
+    public Visit getActiveVisit() {
+        for (Visit visit : roomVisitHistory) {
+            if (visit.getVisitStatus().equals("Active")) {
                 return visit;
             }
         }
@@ -81,4 +67,13 @@ public class Room {
         this.roomStatus = roomStatus;
     }
 
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", roomNumber='" + roomNumber + '\'' +
+                ", roomStatus='" + roomStatus + '\'' +
+                ", roomVisitHistory=" + roomVisitHistory +
+                '}';
+    }
 }

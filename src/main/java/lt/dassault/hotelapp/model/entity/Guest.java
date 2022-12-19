@@ -10,17 +10,15 @@ import java.util.Set;
 public class Guest {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
     private String name;
+
     @NotNull
     private String lastName;
 
-/*    @OneToOne
-    @JoinColumn(name = "room_id", referencedColumnName = "id")
-    private Room assignedRoom;*/
 
     @OneToMany(mappedBy = "guestVisit")
     private Set<Visit> guestVisitHistory;
@@ -67,7 +65,9 @@ public class Guest {
         this.lastName = lastName;
     }
 
-    public String getFullName() { return name + " " + lastName;}
+    public String getFullName() {
+        return name + " " + lastName;
+    }
 
     @Override
     public String toString() {
